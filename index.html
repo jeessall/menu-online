@@ -401,7 +401,7 @@
 
         <div class="m-body">
             <div class="container">
-                <div class="row mr-0 ml-0" id="itensCarrinho">
+                <div class="row mr-0 ml-0 hidden" id="itensCarrinho">
                     <div class="col-12 item-carrinho">
                         <div class="img-produto">
                             <img src="./img/cardapio/burguers/burger-au-poivre-kit-4-pack.3ca0e39b02db753304cd185638dad518.jpg" alt="">
@@ -418,8 +418,87 @@
                         </div>
                     </div>
                 </div>
-                <div class="row mr-0 ml-0 hidden" id="localEntrega">
+                <div class="row mr-0 ml-0 " id="localEntrega">
+                    <div class="col-4">
+                        <div class="form-group container-cep">
+                            <label for="">CEP:</label>
+                            <input id="txtCEP" type="text" class="form-control">
+                            <a href="" class="btn btn-yellow btn-sm"><i class="fa fa-search"></i></a>
+                        </div>
+                    </div>
 
+                    <div class="col-8"></div>
+
+                    <div class="col-6">
+                        <div class="form-group container-cep">
+                            <label for="">Endereço:</label>
+                            <input id="txtEndereco" type="text" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="col-4">
+                        <div class="form-group container-cep">
+                            <label for="">Bairro:</label>
+                            <input id="txtBairro" type="text" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="col-2">
+                        <div class="form-group container-cep">
+                            <label for="">Número:</label>
+                            <input id="txtNumero" type="text" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="col-6">
+                        <div class="form-group container-cep">
+                            <label for="">Cidade:</label>
+                            <input id="txtCidade" type="text" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="col-4">
+                        <div class="form-group container-cep">
+                            <label for="">Complemento:</label>
+                            <input id="txtComplemento" type="text" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="col-2">
+                        <div class="form-group container-cep">
+                            <label for="">UF:</label>
+                            <select name="" id="ddlUf" class="form-control">
+                                <option value="-1">...</option>
+                                <option value="AC">AC</option>
+                                <option value="AL">AL</option>
+                                <option value="AP">AP</option>
+                                <option value="AM">AM</option>
+                                <option value="BA">BA</option>
+                                <option value="CE">CE</option>
+                                <option value="DF">DF</option>
+                                <option value="ES">ES</option>
+                                <option value="GO">GO</option>
+                                <option value="MA">MA</option>
+                                <option value="MT">MT</option>
+                                <option value="MS">MS</option>
+                                <option value="MG">MG</option>
+                                <option value="PA">PA</option>
+                                <option value="PB">PB</option>
+                                <option value="PR">PR</option>
+                                <option value="PE">PE</option>
+                                <option value="PI">PI</option>
+                                <option value="RJ">RJ</option>
+                                <option value="RN">RN</option>
+                                <option value="RS">RS</option>
+                                <option value="RO">RO</option>
+                                <option value="RR">RR</option>
+                                <option value="SC">SC</option>
+                                <option value="SP">SP</option>
+                                <option value="SE">SE</option>
+                                <option value="TO">TO</option>
+                            </select>
+                        </div>
+                    </div>
                 </div>
                 <div class="row mr-0 ml-0 hidden" id="resumoCarrinho">
 
@@ -435,7 +514,7 @@
                         <span id="lblSubTotal">R$ 95,00</span>
                     </p>
                     <p class="mb-0 texto-entrega">
-                        <span><i class="fas fa-motorcycle"></i>Entrega:</span>
+                        <span><i class="fas fa-motorcycle"></i>&nbsp;Entrega:</span>
                         <span id="lblValorEntrega">+ R$ 5,00</span>
                     </p>
                     <p class="mb-0 texto-total">
@@ -446,7 +525,7 @@
                 <a href="" class="btn btn-yellow float-right" id="btnEtapaPedido">
                     Continuar
                 </a>
-                <a href="" class="btn btn-yellow float-right hidden" id="btnEtapaEndereco">
+                <a href="" class="btn btn-yellow float-right " id="btnEtapaEndereco">
                     Revisar pedido
                 </a>
                 <a href="" class="btn btn-yellow float-right hidden" id="btnEtapaResumo">
