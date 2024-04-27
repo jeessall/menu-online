@@ -159,27 +159,28 @@
                 </div>
 
                 <div class="col-12 container-menu">
-                    <a href="" class="active btn btn-white btn-sm mr-3">
+                    <! -- vamos chamar o metodos cardapio para quando clicarmos no botão da categoria escolhida ele mudar, passamos como parametro o nome da categoria que queremos usar-->
+                    <a id="menu-burgers" class="active btn btn-white btn-sm mr-3" onclick="cardapio.metodos.obterItensCardapio('burgers')">
                         <i class="fas fa-hamburger"></i>&nbsp;
                         Burgers
                     </a>
-                    <a href="" class="btn btn-white btn-sm mr-3">
+                    <a id="menu-pizzas" class="btn btn-white btn-sm mr-3" onclick="cardapio.metodos.obterItensCardapio('pizzas')">
                         <i class="fas fa-pizza-slice"></i>&nbsp;
                         Pizzas
                     </a>
-                    <a href="" class="btn btn-white btn-sm mr-3">
+                    <a id="menu-churrasco" class="btn btn-white btn-sm mr-3" onclick="cardapio.metodos.obterItensCardapio('churrasco')">
                         <i class="fas fa-drumstick-bite"></i>&nbsp;
                         Churrasco
                     </a>
-                    <a href="" class="btn btn-white btn-sm mr-3">
+                    <a id="menu-steaks" class="btn btn-white btn-sm mr-3" onclick="cardapio.metodos.obterItensCardapio('steaks')">
                         <i class="fas fa-bacon"></i>&nbsp;
                         Steaks
                     </a>
-                    <a href="" class="btn btn-white btn-sm mr-3">
+                    <a id="menu-bebidas" class="btn btn-white btn-sm mr-3" onclick="cardapio.metodos.obterItensCardapio('bebidas')">
                         <i class="fas fa-cocktail"></i>&nbsp;
                         Bebidas
                     </a>
-                    <a href="" class="btn btn-white btn-sm mr-3">
+                    <a id="menu-sobremesas" class="btn btn-white btn-sm mr-3" onclick="cardapio.metodos.obterItensCardapio('sobremesas')">
                         <i class="fas fa-ice-cream"></i>&nbsp;
                         Sobremesas
                     </a>
@@ -188,11 +189,12 @@
                 <!--cardapio dinamico com js-->
                 <div class="col-12">
                     <div class="row" id="itensCardapio">
+                        
                     </div>
                 </div>
 
                 <div class="col-12 text-center">
-                    <a href="" class="btn btn-white btn-sm">
+                    <a id="btnVerMais" class="btn btn-white btn-sm" onclick="cardapio.metodos.verMais()">
                         Ver mais
                     </a>
                 </div>
