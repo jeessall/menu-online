@@ -38,6 +38,9 @@ cardapio.metodos = {
             //no price vamos usar o toFixed(2) para formatar nosso preço com 2 casas decimais vai ficar $54,00
             //damos outro .replace para substituir tudo que for . por , ex: toFixed(2).replace('.', ',')
             .replace(/\${price}/g, e.price.toFixed(2).replace(".", ","))
+            //outro replace para identificar qual item esta sendo adicionado ou removido
+            .replace(/\${id}/g, e.id)
+
             //vamos usar nossa div com id itensCardapio, para cada item do templates ser adicionado com Jquery]
             //usando .append significa que queremos adicionar dentro do html itensCardapio alguma coisa, e nesse caso vai ser o temp que criamos
             
@@ -73,6 +76,69 @@ cardapio.metodos = {
         //no nosso if vamos remover a class hidde se o botão não for clicado, para poder realizar a ação novamente
         $("#btnVerMais").addClass('hidden');
     },
+
+    //manipulação dos botoes adicionar e remover pedidos com id
+    //diminuir quantidade/ .text para pegar a quantidade atual que é 0
+    diminuirQuantidade: (id) => {
+
+        let qntdAtual = parseInt($("#qntd-" + id).text());
+        //validar para não ser menor que 0
+        if(qntdAtual > 0){
+            $("#qntd-" + id).text(qntdAtual -1);
+        }
+    },
+
+    //aumentar quantidade
+    aumentarQuantidade: (id) => {
+
+        let qntdAtual = parseInt($("#qntd-" + id).text());
+        $("#qntd-" + id).text(qntdAtual +1);
+
+    },
+
+    //adicionar no carrinho os itens do cardapio
+    adicionarCarrinho: (id) => {
+        let qntdAtual = parseInt($("#qntd-" + id).text());
+        //validar para adicionar itens no carrinho só quado for maior que 0
+        if(qntdAtual > 0) {
+            //obter a categoria ativa para filtrar o menu e obter o item
+            var categoria = $(".container-menu a.active").attr('id').split('menu-')[1];
+            //obter a lista de itens
+            let filtro = MENU[categoria];
+            //obter todo o conteudo do item/ .grep retorna um objeto inteiro
+            let item = $.grep(filtro, (e, i) => {
+                return e.id == id
+            });
+
+            //validar com length que valida o tamanho ou seja se for maior que 0
+            if(item.length > 0) {
+
+                //validar se já existe o item no carrinho
+                let existe = $.grep(MEU_CARRINHO, (elem, index) => {
+                    return elem.id == id
+                });
+
+                //se exixtir o item ele vai ser só alterado a quantidade e não no item
+                if(existe.length > 0) {
+                    //vamos procurar a posição do nosso item para aumentar a quantidade usando o .findIndex
+                    let objIndex = MEU_CARRINHO.findIndex((obj => obj.id == id));
+                    MEU_CARRINHO[objIndex].qntd = MEU_CARRINHO[objIndex].qntd + qntdAtual;
+
+                }else {
+                    //se não exixtir o item ai sim pode adicionar ao carrinho
+                    //adicionar ao carrinho a quantidade de itens em 1 unidade só sem repetir esse item
+                    item[0].qntd = qntdAtual;
+                    //.push para adicionar os itens na lista de array
+                    MEU_CARRINHO.push(item[0])
+                }
+
+                //vamos zerar a quantidade de item atual após ser adicionado ao carrinho
+                $("#qntd-" + id).text(0)
+
+            }
+        }
+
+    },
 }
 
 //cada vez que passar pelo .each do filtro vai ter um elemento e do filtro diferente, por 12 vezes
@@ -83,7 +149,7 @@ cardapio.templates = {
     item: 
 `
     <div class="col-3 mb-5">
-        <div class="card card-item">
+        <div class="card card-item" id="\${id}">
         <div class="img-produto">
             <img src="\${img}" alt=""/>
         </div>
@@ -94,10 +160,10 @@ cardapio.templates = {
                 <b>R$ \${price}</b>
             </p>                   
             <div class="add-carrinho">
-                <span class="btn-menos"><i class="fas fa-minus"></i></span>
-                <span class="add-numero-itens">0</span>
-                <span class="btn-mais"><i class="fas fa-plus"></i></span>
-                <span class="btn btn-add"><i class="fa fa-shopping-bag"></i></span>                    
+                <span class="btn-menos" onclick="cardapio.metodos.diminuirQuantidade('\${id}')"><i class="fas fa-minus"></i></span>
+                <span class="add-numero-itens" id="qntd-\${id}">0</span>
+                <span class="btn-mais" onclick="cardapio.metodos.aumentarQuantidade('\${id}')"><i class="fas fa-plus"></i></span>
+                <span class="btn btn-add" onclick="cardapio.metodos.adicionarCarrinho('\${id}')"><i class="fa fa-shopping-bag"></i></span>                    
             </div>
         </div>
     </div>
