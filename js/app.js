@@ -4,7 +4,7 @@ $(document).ready(function(){
 
 var cardapio = {};
 
-
+var MEU_CARRINHO = [];
 
 cardapio.eventos = {
     init: () => {
@@ -133,12 +133,41 @@ cardapio.metodos = {
                 }
 
                 //vamos zerar a quantidade de item atual após ser adicionado ao carrinho
+                cardapio.metodos.mensagem();
                 $("#qntd-" + id).text(0)
+
+                cardapio.metodos.atualizarBadgeTotal();
 
             }
         }
 
     },
+
+    //atualiza o total dos itens no meu botão flutuante "meu carrinho"
+    atualizarBadgeTotal: () => {
+
+        //percorrer nosso carrinho para somar os itens
+        var total = 0;
+        $.each(MEU_CARRINHO, (i, e) => {
+            total += e.qntd
+        })
+
+        //validar se tiver coisa no carrinho, removemos a classe hidden para ele ser exibido
+        if(total > 0) {
+            $(".botao-carrinho").removeClass('hidden')
+            $(".container-total-carrinho").removeClass('hidden')
+        }else {
+            $(".botao-carrinho").addClass('hidden')
+            $(".container-total-carrinho").addClass('hidden')
+        }
+
+        $(".badge-total-carrinho").html(total);
+
+    },
+
+    mensagem: (texto, cor="red", tempo = 3500) => {
+        alert('O item foi adicionado ao carrinho!');
+    }
 }
 
 //cada vez que passar pelo .each do filtro vai ter um elemento e do filtro diferente, por 12 vezes
