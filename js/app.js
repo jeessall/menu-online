@@ -133,7 +133,7 @@ cardapio.metodos = {
                 }
 
                 //vamos zerar a quantidade de item atual após ser adicionado ao carrinho
-                cardapio.metodos.mensagem();
+                cardapio.metodos.mensagem('Item adicionado ao carrinho', 'green');
                 $("#qntd-" + id).text(0)
 
                 cardapio.metodos.atualizarBadgeTotal();
@@ -165,8 +165,39 @@ cardapio.metodos = {
 
     },
 
+    abrirCarrinho: (abrir) => {
+        if(abrir) {
+            $("#modalCarrinho").removeClasss('hidden');
+        }else {
+            $("#modalCarrinho").addClass('hidden');
+        }
+    },
+
+
+
+
+
+
+
+
     mensagem: (texto, cor="red", tempo = 3500) => {
-        alert('O item foi adicionado ao carrinho!');
+        
+        //criando id aleatoria que não se repete
+        let id = Math.floor(Date.now() * Math.random()).toString();
+        
+        let msg = `<div id="msg-${id}" class="animated fadeInDown toast ${cor}">${texto}</div>`;
+        $("#container-mensagens").append(msg);
+
+        //usamos setTimeout para dizer em qual tempo a função que foi passada pra ele vai ser exibida ou vai funcionar
+        setTimeout(() => {
+            //removendo e adicionando classes para fazer animação
+            $("#msg-" + id).removeClass('fadeInDown');
+            $("#msg-" + id).addClass('fadeOutUp');
+            //nesse caso vamos remover a mensagem em 3 segundos
+            setTimeout(() =>{
+                $("#msg-" + id).remove();
+            }, 800);
+        }, tempo)
     }
 }
 
