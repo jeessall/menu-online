@@ -165,20 +165,14 @@ cardapio.metodos = {
 
     },
 
+    //quando clicar no botão de sacola flutuante vai abrir o carrinho de compras
     abrirCarrinho: (abrir) => {
         if(abrir) {
-            $("#modalCarrinho").removeClasss('hidden');
+            $("#modalCarrinho").removeClass('hidden');
         }else {
             $("#modalCarrinho").addClass('hidden');
         }
     },
-
-
-
-
-
-
-
 
     mensagem: (texto, cor="red", tempo = 3500) => {
         
