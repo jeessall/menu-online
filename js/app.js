@@ -174,6 +174,25 @@ cardapio.metodos = {
         }
     },
 
+    //altera os textos dentro do menu carrinho onde ficam os itens e exibe os botões das etapas
+    carregarEtapa: (etapa) => {
+        if(etapa == 1) {
+            $("#lblTituloEtapa").text('Seu carrinho:');
+            $("#itensCarrinho").removeClass('hidden');
+            $("#localEntrega").addClass('hidden');
+            $("#resumoCarrinho").addClass('hidden');
+            
+        }
+
+        if(etapa == 2) {
+
+        }
+
+        if(etapa == 3) {
+
+        }
+    },
+
     mensagem: (texto, cor="red", tempo = 3500) => {
         
         //criando id aleatoria que não se repete
