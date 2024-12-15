@@ -1,4 +1,4 @@
-$(document).ready(function(){
+$(document).ready(function () {
     cardapio.eventos.init();
 })
 
@@ -11,7 +11,7 @@ cardapio.eventos = {
         cardapio.metodos.obterItensCardapio();
     }
 
-    }
+}
 
 //exixte o tipo int e tipo float, o float vem com ponto geralmente de um banco de dados, quando consumimos
 
@@ -24,7 +24,7 @@ cardapio.metodos = {
         var filtro = MENU[categoria];
 
         //para mudar para outra categoria do cardapio devemos limpar a categoria anterior para exibir somente a categoria escolhida
-        if(!vermais) {
+        if (!vermais) {
             $("#itensCardapio").html("")
             $("#btnVerMais").removeClass('hidden')
         }
@@ -34,28 +34,28 @@ cardapio.metodos = {
             //vamos usar o replace para substituir nossos elementos do template
             //variavel dentro das funções /\${img}/g /\${nome}/g /\${preco}/g esse tipo de variavel é global e se chama rejex
             let temp = cardapio.templates.item.replace(/\${img}/g, e.img)
-            .replace(/\${nome}/g, e.name)
-            //no price vamos usar o toFixed(2) para formatar nosso preço com 2 casas decimais vai ficar $54,00
-            //damos outro .replace para substituir tudo que for . por , ex: toFixed(2).replace('.', ',')
-            .replace(/\${price}/g, e.price.toFixed(2).replace(".", ","))
-            //outro replace para identificar qual item esta sendo adicionado ou removido
-            .replace(/\${id}/g, e.id)
+                .replace(/\${nome}/g, e.name)
+                //no price vamos usar o toFixed(2) para formatar nosso preço com 2 casas decimais vai ficar $54,00
+                //damos outro .replace para substituir tudo que for . por , ex: toFixed(2).replace('.', ',')
+                .replace(/\${price}/g, e.price.toFixed(2).replace(".", ","))
+                //outro replace para identificar qual item esta sendo adicionado ou removido
+                .replace(/\${id}/g, e.id)
 
             //vamos usar nossa div com id itensCardapio, para cada item do templates ser adicionado com Jquery]
             //usando .append significa que queremos adicionar dentro do html itensCardapio alguma coisa, e nesse caso vai ser o temp que criamos
-            
+
             //vamos validar os itens do cardapio para ser exibido somente 8 itens por categoria, quando clicar no btn ver mais vai aparecer mais 4 itens dentro das categorias totalizando 12
             //o btn cai nesse if quando for verdadeiro e tiver mais que 8 itens
-            if(vermais && i >= 8 && i < 12) {
+            if (vermais && i >= 8 && i < 12) {
                 $("#itensCardapio").append(temp)
             }
 
             //itens da pagina inicial 8, colocamos exclamação ! para negar o btn
             //como o btn ver mais é = false ele cai no segundo if pq só exibe 8 itens
-            if(!vermais && i < 8) {
+            if (!vermais && i < 8) {
                 $("#itensCardapio").append(temp)
             }
-            
+
         })
 
         //remover a class active das categorias quando alterar para outra categoria
@@ -83,8 +83,8 @@ cardapio.metodos = {
 
         let qntdAtual = parseInt($("#qntd-" + id).text());
         //validar para não ser menor que 0
-        if(qntdAtual > 0){
-            $("#qntd-" + id).text(qntdAtual -1);
+        if (qntdAtual > 0) {
+            $("#qntd-" + id).text(qntdAtual - 1);
         }
     },
 
@@ -92,7 +92,7 @@ cardapio.metodos = {
     aumentarQuantidade: (id) => {
 
         let qntdAtual = parseInt($("#qntd-" + id).text());
-        $("#qntd-" + id).text(qntdAtual +1);
+        $("#qntd-" + id).text(qntdAtual + 1);
 
     },
 
@@ -100,7 +100,7 @@ cardapio.metodos = {
     adicionarCarrinho: (id) => {
         let qntdAtual = parseInt($("#qntd-" + id).text());
         //validar para adicionar itens no carrinho só quado for maior que 0
-        if(qntdAtual > 0) {
+        if (qntdAtual > 0) {
             //obter a categoria ativa para filtrar o menu e obter o item
             var categoria = $(".container-menu a.active").attr('id').split('menu-')[1];
             //obter a lista de itens
@@ -111,7 +111,7 @@ cardapio.metodos = {
             });
 
             //validar com length que valida o tamanho ou seja se for maior que 0
-            if(item.length > 0) {
+            if (item.length > 0) {
 
                 //validar se já existe o item no carrinho
                 let existe = $.grep(MEU_CARRINHO, (elem, index) => {
@@ -119,12 +119,12 @@ cardapio.metodos = {
                 });
 
                 //se exixtir o item ele vai ser só alterado a quantidade e não no item
-                if(existe.length > 0) {
+                if (existe.length > 0) {
                     //vamos procurar a posição do nosso item para aumentar a quantidade usando o .findIndex
                     let objIndex = MEU_CARRINHO.findIndex((obj => obj.id == id));
                     MEU_CARRINHO[objIndex].qntd = MEU_CARRINHO[objIndex].qntd + qntdAtual;
 
-                }else {
+                } else {
                     //se não exixtir o item ai sim pode adicionar ao carrinho
                     //adicionar ao carrinho a quantidade de itens em 1 unidade só sem repetir esse item
                     item[0].qntd = qntdAtual;
@@ -153,10 +153,10 @@ cardapio.metodos = {
         })
 
         //validar se tiver coisa no carrinho, removemos a classe hidden para ele ser exibido
-        if(total > 0) {
+        if (total > 0) {
             $(".botao-carrinho").removeClass('hidden')
             $(".container-total-carrinho").removeClass('hidden')
-        }else {
+        } else {
             $(".botao-carrinho").addClass('hidden')
             $(".container-total-carrinho").addClass('hidden')
         }
@@ -167,17 +167,17 @@ cardapio.metodos = {
 
     //quando clicar no botão de sacola flutuante vai abrir o carrinho de compras
     abrirCarrinho: (abrir) => {
-        if(abrir) {
+        if (abrir) {
             $("#modalCarrinho").removeClass('hidden');
-            cardapio.metodos.carregarEtapa(1);
-        }else {
+            cardapio.metodos.carregarCarrinho();
+        } else {
             $("#modalCarrinho").addClass('hidden');
         }
     },
 
     //altera os textos dentro do menu carrinho onde ficam os itens e exibe os botões das etapas
     carregarEtapa: (etapa) => {
-        if(etapa == 1) {
+        if (etapa == 1) {
             $("#lblTituloEtapa").text('Seu carrinho:');
             $("#itensCarrinho").removeClass('hidden');
             $("#localEntrega").addClass('hidden');
@@ -190,10 +190,10 @@ cardapio.metodos = {
             $("#btnEtapaEndereco").addClass('hidden');
             $("#btnEtapaResumo").addClass('hidden');
             $("#btnVoltar").addClass('hidden');
-            
+
         }
 
-        if(etapa == 2) {
+        if (etapa == 2) {
             $("#lblTituloEtapa").text('Endereço de entrega:');
             $("#itensCarrinho").addClass('hidden');
             $("#localEntrega").removeClass('hidden');
@@ -209,7 +209,7 @@ cardapio.metodos = {
             $("#btnVoltar").removeClass('hidden');
         }
 
-        if(etapa == 3) {
+        if (etapa == 3) {
             $("#lblTituloEtapa").text('Resumo do pedido:');
             $("#itensCarrinho").addClass('hidden');
             $("#localEntrega").addClass('hidden');
@@ -230,15 +230,27 @@ cardapio.metodos = {
     //botão de voltar etapa, verificação pra saber em qual etapa estamos
     //o length vai pegar a quantidade de elementos com a class active que são 3 e diminuir -1 pra voltar a etapa
     voltarEtapa: () => {
-       let etapa = $(".etapa.active").length;
-       cardapio.metodos.carregarEtapa(etapa - 1);
+        let etapa = $(".etapa.active").length;
+        cardapio.metodos.carregarEtapa(etapa - 1);
     },
 
-    mensagem: (texto, cor="red", tempo = 3500) => {
-        
+    //vai carregar a lista de itens do carrinho quando abrir o carrinho
+    carregarCarrinho: () => {
+        cardapio.metodos.carregarEtapa(1);
+
+        if (MEU_CARRINHO.length > 0) {
+
+        } else {
+
+        }
+    },
+
+
+    mensagem: (texto, cor = "red", tempo = 3500) => {
+
         //criando id aleatoria que não se repete
         let id = Math.floor(Date.now() * Math.random()).toString();
-        
+
         let msg = `<div id="msg-${id}" class="animated fadeInDown toast ${cor}">${texto}</div>`;
         $("#container-mensagens").append(msg);
 
@@ -248,7 +260,7 @@ cardapio.metodos = {
             $("#msg-" + id).removeClass('fadeInDown');
             $("#msg-" + id).addClass('fadeOutUp');
             //nesse caso vamos remover a mensagem em 3 segundos
-            setTimeout(() =>{
+            setTimeout(() => {
                 $("#msg-" + id).remove();
             }, 800);
         }, tempo)
@@ -260,8 +272,7 @@ cardapio.metodos = {
 cardapio.templates = {
     //vamos usar a propriedade dos itens para substituir, encotramos no console.log
     //variavel dentro das funções /\${img}/g /\${nome}/g /\${preco}/g esse tipo de variavel é global e se chama rejex
-    item: 
-`
+    item: `
     <div class="col-3 mb-5">
         <div class="card card-item" id="\${id}">
         <div class="img-produto">
@@ -281,7 +292,25 @@ cardapio.templates = {
             </div>
         </div>
     </div>
-`
+`,
+
+itemCarrinho: `
+    <div class="col-12 item-carrinho">
+        <div class= "img-produto" >
+            <img src="\${img}" alt="">
+        </div>
+        <div class="dados-produto">
+            <p class="title-produto"><b>\${nome}</b></p>
+            <p class="price-produto"><b>R$ \${preco}</b></p>
+        </div>
+        <div class="add-carrinho">
+            <span class="btn-menos" onclick="cardapio.metodos.diminuirQuantidade('\${id}')"><i class="fas fa-minus"></i></span>
+                <span class="add-numero-itens" id="qntd-\${id}">0</span>
+                <span class="btn-mais" onclick="cardapio.metodos.aumentarQuantidade('\${id}')"><i class="fas fa-plus"></i></span>
+            <span class="btn btn-remove"><i class="fa fa-times"></i></span>
+        </div>
+    </div>
+`,  
 
 
 }
