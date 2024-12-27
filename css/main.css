@@ -487,7 +487,7 @@ footer {
     overflow-x: hidden;
 }
 
-.m-body::-webkit-scrollbar {
+/*.m-body::-webkit-scrollbar {
     width: 6px;
     background: transparent;
 }
@@ -498,7 +498,7 @@ footer {
 
 .m-body::-webkit-scrollbar-track {
     background: transparent;
-}
+}*/
 
 .etapas {
     display: flex;
@@ -748,4 +748,15 @@ select.form-control {
 
 .toast.green {
     background-color: var(--color-green);
+}
+
+.carrinho-vazio {
+    margin: 0 auto;
+    text-align: center;
+    margin-top: 50px;
+}
+
+.carrinho-vazio i {
+    width: 50px;
+    /*parei no video em 14 minutos*/
 }
